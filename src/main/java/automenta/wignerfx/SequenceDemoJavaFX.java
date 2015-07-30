@@ -19,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 public class SequenceDemoJavaFX extends Application implements Runnable {
 
     int vectorSize = 6;
-    private SequenceLearner sl;
     int inputs, outputs;
 
     final int dataWindow = 50;
@@ -225,7 +224,6 @@ public class SequenceDemoJavaFX extends Application implements Runnable {
 
     public void cycle() {
 
-        sl.run();
 
     }
 
@@ -233,47 +231,8 @@ public class SequenceDemoJavaFX extends Application implements Runnable {
     public void init() {
 
 
-
-        sl = new RunSequenceLearner(vectorSize) {
-
-            @Override
-            public void onTrained(int sequenceNum, TrainingSequence sequence, NeuralTuringMachine[] output, long trainTimeNS, double avgError) {
-
-                double[][] inputs = sequence.input;
-                double[][] ideals = sequence.ideal;
-                int slen = ideals.length;
-
-                /*for (int t = 0; t < slen; t++) {
-                    double[] actual = output[t].getOutput();
-                    System.out.println("\t" + sequenceNum + "#" + t + ":\t" + toNiceString(ideals[t]) + " =?= " + toNiceString(actual));
-                }*/
-
-                for (int t = 0; t < slen; t++) {
-                    //pop(data);
-
-                    final int tt = t;
-
-                    queue(() -> {
-
-                        double[] input = inputs[tt];
-                        double[] ideal = ideals[tt];
-                        double[] actual = output[tt].getOutput();
-
-                        pushLast(input, 0);
-                        pushLast(ideal, input.length + 1);
-                        pushLast(actual, input.length+1+ideal.length+1);
-
-                        commit();
-
-                    });
-                }
-
-
-            }
-        };
-
-        inputs = sl.machine.inputSize();
-        outputs = sl.machine.outputSize();
+        inputs = 5;
+        outputs = 23;
 
         dataWidth = inputs + 1 + outputs + 1 + outputs;
 

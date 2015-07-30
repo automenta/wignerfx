@@ -15,15 +15,10 @@ import javafx.stage.Stage;
 
 import java.util.ArrayDeque;
 
-/**
- * Created by me on 7/5/15.
- */
-
 // Display a rotating 3D box with a video projected onto its surface.
 public class SequenceDemoTextureJavaFX extends Application {
 
     int vectorSize = 16;
-    private SequenceLearner sl;
     int inputs, outputs;
 
     final int dataWindow = 200;
@@ -40,7 +35,9 @@ public class SequenceDemoTextureJavaFX extends Application {
 
         try {
             if (queue.isEmpty())
-                sl.run();
+            {
+
+            }
             else {
                 Runnable r = queue.pollFirst();
                 r.run();
@@ -74,48 +71,9 @@ public class SequenceDemoTextureJavaFX extends Application {
     public void init() {
 
 
-        sl = new RunSequenceLearner(vectorSize) {
 
-            @Override
-            public void onTrained(int sequenceNum, TrainingSequence sequence, NeuralTuringMachine[] output, long trainTimeNS, double avgError) {
-
-                double[][] inputs = sequence.input;
-                double[][] ideals = sequence.ideal;
-
-                int slen = ideals.length;
-
-                /*for (int t = 0; t < slen; t++) {
-                    double[] actual = output[t].getOutput();
-                    System.out.println("\t" + sequenceNum + "#" + t + ":\t" + toNiceString(ideals[t]) + " =?= " + toNiceString(actual));
-                }*/
-
-                for (int t = 0; t < slen; t++) {
-                    //pop(data);
-
-                    final int tt = t;
-
-
-                    double[] input = inputs[tt];
-                    double[] ideal = ideals[tt];
-                    double[] actual = output[tt].getOutput();
-
-                    pushLast(input, 0);
-                    pushLast(ideal, input.length + 1);
-                    pushLast(actual, input.length + 1 + ideal.length + 1);
-
-
-                }
-
-                queue.add(() ->
-                                commit()
-                );
-
-
-            }
-        };
-
-        inputs = sl.machine.inputSize();
-        outputs = sl.machine.outputSize();
+        inputs = 29;
+        outputs = 20;
 
         dataWidth = inputs + 1 + outputs + 1 + outputs;
 
@@ -123,6 +81,12 @@ public class SequenceDemoTextureJavaFX extends Application {
 
 
         textureImage = new WritableImage(dataWindow + margin * 2, dataWidth + margin * 2);
+
+        textureImage.getPixelWriter().setColor(0, 0, Color.BLUE);
+        textureImage.getPixelWriter().setColor(1, 1, Color.BLUE);
+        textureImage.getPixelWriter().setColor(2, 2, Color.BLUE);
+        textureImage.getPixelWriter().setColor(3, 3, Color.BLUE);
+        textureImage.getPixelWriter().setColor(4, 4, Color.BLUE);
 
     }
 
