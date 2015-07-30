@@ -1,5 +1,6 @@
 package automenta.wignerfx;
 
+import automenta.wignerfx.RenderingInteraction.StatefulModule;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.*;
@@ -10,7 +11,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape3D;
 import javafx.stage.Stage;
 
@@ -176,9 +176,10 @@ public class SequenceDemoTextureJavaFX extends Application {
 
 
 
-        Rectangle rect = new Rectangle(25,25,250,250);
-        rect.setFill(Color.BLUE);
-        group.getChildren().add(rect);
+        StatefulModule statefulModule = new StatefulModule();
+
+        group.getChildren().add(statefulModule.group);
+
 
 
 
