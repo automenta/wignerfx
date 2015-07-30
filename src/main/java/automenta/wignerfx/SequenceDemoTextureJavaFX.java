@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape3D;
 import javafx.stage.Stage;
 
@@ -156,7 +157,7 @@ public class SequenceDemoTextureJavaFX extends Application {
 
         // place the shape and associated lights in a group.
         Group group = new Group(
-                box,
+                //box,
                 pointLight,
                 ambientLight
         );
@@ -172,6 +173,14 @@ public class SequenceDemoTextureJavaFX extends Application {
         scene.setCamera(camera);
 
         stage.setScene(scene);
+
+
+
+        Rectangle rect = new Rectangle(25,25,250,250);
+        rect.setFill(Color.BLUE);
+        group.getChildren().add(rect);
+
+
 
         // start playing the media, showing the scene once the media is ready to play.
         //player.setOnReady(stage::show);
