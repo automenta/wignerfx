@@ -1,5 +1,6 @@
 package automenta.wignerfx.RenderingInteraction;
 
+import automenta.wignerfx.Modules.Library.Module;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -29,5 +30,10 @@ public class StatefulModule {
         //group.getChildren().add(c1);
 
         group = new Group(rect, c1, c2);
+    }
+
+    public static StatefulModule createAfterModule(Module moduleForDummyNeuron) {
+        // TODO
+        return new StatefulModule();
     }
 }

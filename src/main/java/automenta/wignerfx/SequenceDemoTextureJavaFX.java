@@ -1,5 +1,10 @@
 package automenta.wignerfx;
 
+import automenta.wignerfx.Modules.Interface.Connector;
+import automenta.wignerfx.Modules.Interface.ReflectedInterface;
+import automenta.wignerfx.Modules.Library.Library;
+import automenta.wignerfx.Modules.Library.Module;
+import automenta.wignerfx.Modules.Standard.DummyNeuron;
 import automenta.wignerfx.RenderingInteraction.StatefulModule;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -15,6 +20,7 @@ import javafx.scene.shape.Shape3D;
 import javafx.stage.Stage;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 
 // Display a rotating 3D box with a video projected onto its surface.
 public class SequenceDemoTextureJavaFX extends Application {
@@ -175,8 +181,22 @@ public class SequenceDemoTextureJavaFX extends Application {
         stage.setScene(scene);
 
 
+        // here for testing
+        Library library = new Library();
 
-        StatefulModule statefulModule = new StatefulModule();
+        DummyNeuron dummyNeuron = new DummyNeuron();
+
+        ReflectedInterface reflectedInterface = new ReflectedInterface(dummyNeuron);
+
+        Module moduleForDummyNeuron = new Module();
+        moduleForDummyNeuron.inputCompatibleConnectors = reflectedInterface.getConnectors(Arrays.asList(Connector.EnumDirection.IN));
+        moduleForDummyNeuron.outputCompatibleConnectors = reflectedInterface.getConnectors(Arrays.asList(Connector.EnumDirection.OUT));
+
+        library.modules.put(DummyNeuron.class, moduleForDummyNeuron);
+
+
+
+        StatefulModule statefulModule = StatefulModule.createAfterModule(moduleForDummyNeuron);
 
         group.getChildren().add(statefulModule.group);
 
@@ -221,6 +241,8 @@ public class SequenceDemoTextureJavaFX extends Application {
             mouseOldY = me.getSceneY();
         });
         scene.setOnMouseDragged((MouseEvent me) -> {
+            System.out.println(statefulModule.group.getChildren().get(0).contains(me.getX(), me.getY()));
+
             mouseOldX = mousePosX;
             mouseOldY = mousePosY;
             mousePosX = me.getSceneX();
