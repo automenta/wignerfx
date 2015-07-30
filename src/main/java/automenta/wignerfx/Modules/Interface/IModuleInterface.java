@@ -6,10 +6,5 @@ import java.util.List;
  *
  */
 public interface IModuleInterface {
-    public enum EnumConnectorCompatibility {
-        INPUT,
-        OUTPUT
-    }
-
-    public Connector[] getConnectors(List<EnumConnectorCompatibility> connectorCompatibilityList);
+    List<Connector> getConnectors(List<Connector.EnumDirection> connectorCompatibilityList);
 }
