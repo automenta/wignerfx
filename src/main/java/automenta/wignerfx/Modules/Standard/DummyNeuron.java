@@ -11,4 +11,9 @@ public class DummyNeuron {
     public float getValue() {
         return 0.0f;
     }
+
+    @Io(name = "input", directions = Connector.EnumDirection.IN)
+    public void setInput(float input) {
+
+    }
 }
