@@ -56,6 +56,12 @@ public class SequenceDemoTextureJavaFX extends Application {
 
         stage.setScene(scene);
 
+        Global global = new Global();
+        global.rect.setFill(Color.WHITE);
+
+        group.getChildren().add(global.rect);
+
+
 
         // here for testing
         Library library = new Library();
@@ -107,7 +113,7 @@ public class SequenceDemoTextureJavaFX extends Application {
             }
         });
 
-        eventDispatcher.setupHandlers(scene, camera);
+        eventDispatcher.setupHandlers(scene, camera, global);
 
         stage.show();
     }

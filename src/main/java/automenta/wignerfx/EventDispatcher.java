@@ -14,6 +14,8 @@ public class EventDispatcher {
     private Scene scene;
     private Camera camera;
 
+    private Global global;
+
     private MouseDragedHandler dragedHandler;
 
     private static class MousePressedHandler implements EventHandler<MouseEvent> {
@@ -41,6 +43,8 @@ public class EventDispatcher {
 
         @Override
         public void handle(MouseEvent event) {
+            eventDispatcher.global.x(new double[]{0,0}, new double[]{event.getSceneX(), event.getSceneY()});
+
             eventDispatcher.mouseOldX = eventDispatcher.mousePosX;
             eventDispatcher.mouseOldY = eventDispatcher.mousePosY;
             eventDispatcher.mousePosX = event.getSceneX();
@@ -75,9 +79,10 @@ public class EventDispatcher {
         }
     }
 
-    public void setupHandlers(Scene scene, Camera camera) {
+    public void setupHandlers(Scene scene, Camera camera, Global global) {
         this.scene = scene;
         this.camera = camera;
+        this.global = global;
 
         this.dragedHandler = new MouseDragedHandler(this);
 
